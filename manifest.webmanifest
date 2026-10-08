@@ -1,8 +1,8 @@
 {
-  "id": "/Elie-le-Prophete/?v=2",
+  "id": "/Elie-le-Prophete-test/?v=3",
   "name": "WMB Bible d’étude",
   "short_name": "WMB Bible d’étude",
-  "description": "Bible d’étude, brochures et notes personnelles, disponibles même hors connexion.",
+  "description": "Bible d’étude et notes personnelles, disponibles même hors connexion (version sans brochures).",
   "lang": "fr",
   "dir": "ltr",
   "start_url": "./?app=wmb",
