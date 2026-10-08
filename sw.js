@@ -1,4 +1,4 @@
-const CACHE_NAME = 'wmb-app-v2';   // v2 : nouvelle identité d’application (installation)
+const CACHE_NAME = 'wmb-app-v3';   // v3 : brochures complétées ; les textes sont versionnés (?v=3) pour ne pas réutiliser l'ancien cache
 const CORE_PATHS = [
   "./",
   "./index.html",
@@ -27,11 +27,11 @@ const CORE_PATHS = [
   "./js/part-021.js",
   "./js/part-022.js",
   "./js/part-023.js",
-  "./data/brochures_z1.json.gz",
-  "./data/brochures_z2.json.gz",
-  "./data/brochures_z3.json.gz",
-  "./data/brochures_z4.json.gz",
-  "./data/brochures_z5.json.gz",
+  "./data/brochures_z1.json.gz?v=3",
+  "./data/brochures_z2.json.gz?v=3",
+  "./data/brochures_z3.json.gz?v=3",
+  "./data/brochures_z4.json.gz?v=3",
+  "./data/brochures_z5.json.gz?v=3",
   "./assets/apple-touch-icon.png",
   "./assets/branham.jpg",
   "./assets/icon-192.png",
@@ -56,9 +56,9 @@ async function tell(message) {
   clients.forEach(client => client.postMessage(message));
 }
 
-// Update the application shell immediately. Reuse already-downloaded brochure
-// files from the previous cache so an app update does not redownload ~50 MB.
-// Missing brochure files are fetched when the user presses “Télécharger tous les textes”.
+// Update the application shell immediately. Brochure files are versioned (?v=N):
+// a previous cache is reused only for the same version, so a data update never
+// keeps old texts. Missing brochure files are fetched when the user presses “Télécharger tous les textes”.
 async function installShell() {
   const cache = await caches.open(CACHE_NAME);
   const oldCaches = await Promise.all((await caches.keys())
@@ -68,8 +68,8 @@ async function installShell() {
 
   for (const url of urls()) {
     if (isBrochureData(url)) {
-      // Les textes sont identiques d'une version à l'autre de l'application :
-      // on les recopie au lieu d'imposer un retéléchargement de ~50 Mo.
+      // Les textes sont versionnés (?v=N) : on ne recopie que ceux de même version,
+      // pour ne jamais garder d'anciens textes après une mise à jour des données.
       // S'ils sont absents, « Télécharger tous les textes » les récupère.
       for (const previous of oldCaches) {
         const hit = await previous.match(url);
