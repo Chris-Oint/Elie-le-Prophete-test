@@ -1,27 +1,39 @@
-# WMB Bible d’étude
+# WMB Bible d’étude — version « Bible seule »
 
-Bible d’étude hors connexion (PWA installable) — textes officiels **Shekinah** (branham.fr) et **VGR / The Table officiel** (table.branham.org), avec référence croisée verset ↔ paragraphe.
+Version de test de l’application dont **toutes les brochures (prédications) ont été retirées**.
 
-- **Application en ligne :** https://chris-oint.github.io/Elie-le-Prophete/
-- **Installation :** ouvrir le lien, puis « Ajouter à l’écran d’accueil » / « Installer l’application ».
-- **Hors connexion :** bouton **Télécharger tous les textes** (≈ 50 Mo une seule fois) ; le service worker met ensuite tout le contenu en cache.
+- **Application en ligne :** cette version déployée sur GitHub Pages
+- **Installation :** ouvrir le lien, puis « Ajouter à l’écran d’accueil » / « Installer l’application »
+- **Hors connexion :** bouton **Télécharger la Bible (hors connexion)** ; le service worker met tout en cache
 
-## Contenu de la révision
+## Ce qui a été retiré
 
-| Élément | Valeur |
+| Élément | État |
 |---|---|
-| Documents | 1 596 (Shekinah 1 210 · VGR 386) |
-| Codes de message | 1 213 |
-| Paragraphes | 250 485 |
-| Références croisées | 200 261 |
-| Paragraphes au découpage réparé | 8 615 (dans 526 documents) |
+| Corpus des brochures (`data/brochures_z1..z5.json.gz`, ≈ 50 Mo) | supprimé |
+| Index des brochures dans les données de l’application (`meta`, `links`, `zoff`, `codes`) | vidé |
+| Onglet **MSG • brochures** et toute la vue brochure | retiré |
+| Recherche : onglets **Brochures** et **Globale** | retirés (il reste **Bible**) |
+| Panneau latéral **Brochures W. M. Branham** (photo du prédicateur) | retiré |
+| Sélecteur de brochure, liste des 1 212 prédications | retiré |
+| Correspondances verset ↔ brochure, pastilles « MSG liés », légende Exact/Partiel/Contextuel | retirées |
+| Filtres d’historique VGR / Shekinah | retirés |
+| Bouton flottant Bible ⇄ Brochure | retiré (la bulle ouvre le choix du chapitre) |
 
-Corpus reconstruit à partir des sources officielles : Little Storehouse / branham.fr (Shekinah) et l’application officielle The Table (VGR).
+## Ce qui reste identique
+
+- Bible complète, 66 livres, 1 189 chapitres
+- Lecture, recherche biblique (Ancien / Nouveau Testament, mot exact, variantes)
+- Notes personnelles, marquages (surlignage, soulignage), historique
+- Thèmes, polices, installation PWA et fonctionnement hors connexion
 
 ## Fichiers
 
 - `index.html` — application (un seul écran, chargement des `js/part-0xx.js`)
-- `js/part-004.js` — données (index des documents, liens, patchs recherche)
-- `data/brochures_z1..z5.json.gz` — corpus compressé par zone
-- `sw.js` — service worker (`wmb-app-v1`) pour le hors connexion
-- `manifest.webmanifest` — métadonnées PWA (installation, icônes)
+- `js/part-004.js` — données bibliques + moteur de recherche
+- `js/part-024.js` — patch « Bible seule » (masque et neutralise tout le code brochure)
+- `sw.js` — service worker (`wmb-app-v3`) pour le hors connexion
+- `manifest.webmanifest` — métadonnées PWA
+
+La version d’origine (avec les brochures) reste disponible :
+https://chris-oint.github.io/Elie-le-Prophete/
